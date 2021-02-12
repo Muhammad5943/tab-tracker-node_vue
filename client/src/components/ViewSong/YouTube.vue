@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import Panel from '@/components/Panel'
+// import Panel from '@/components/Panel'
 // import VueYouTubeEmbed from 'vue-youtube-embed'
 
 export default {
@@ -17,10 +17,10 @@ export default {
     'youtubeId'
   ],
 
-  components: {
+  /* components: {
     Panel
     // VueYouTubeEmbed
-  }
+  } */
 }
 </script>
 

@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import Panel from '@/components/Panel'
+// import Panel from '@/components/Panel'
 export default {
   props: [
     'song'
@@ -51,9 +51,9 @@ export default {
     }
   },
 
-  components: {
+  /* components: {
     Panel
-  }
+  } */
 }
 </script>
 

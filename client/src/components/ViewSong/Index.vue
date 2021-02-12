@@ -29,7 +29,7 @@ import YouTube from './YouTube'
 import Lyrics from './Lyrics'
 import Tab from './Tab'
 import SongsServices from '@/services/SongsService'
-import Panel from '@/components/Panel'
+// import Panel from '@/components/Panel'
 
 export default {
   data () {
@@ -44,7 +44,7 @@ export default {
     // console.log(song);
   },
   components: {
-    Panel,
+    // Panel,
     SongMetadata,
     YouTube,
     Lyrics,
