@@ -9,6 +9,8 @@
 </template>
 
 <script>
+// importing lodash for took time when inputing search query
+import _ from 'lodash'
 export default {
   data() {
     return {
@@ -17,7 +19,8 @@ export default {
   },
   watch: {
     // TODO: searching method
-    search (value) {
+    // debounch is took looping query but it hold with lodash
+    search: _.debounce(async function (value) {
       const route = {
         name: 'songs'
       }
@@ -37,7 +40,7 @@ export default {
         }
       });
       // console.log(value);
-    },
+    }, 700),
     // to pass the sync query from url to search textbox
     '$route.query.search': {
       immediate: true,

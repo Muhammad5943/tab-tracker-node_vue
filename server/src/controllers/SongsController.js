@@ -13,22 +13,22 @@ module.exports = {
                         [Op.or]: [
                             {
                                 title: {
-                                    [Op.like]: [`%${search}%`]
+                                    [Op.like]: `%${search}%`
                                 }
                             },
                             {
                                 artist: {
-                                    [Op.like]: [`%${search}%`]
+                                    [Op.like]: `%${search}%`
                                 }
                             },
                             {
                                 genre: {
-                                    [Op.like]: [`%${search}%`]
+                                    [Op.like]: `%${search}%`
                                 }
                             },
                             {
                                 album: {
-                                    [Op.like]: [`%${search}%`]
+                                    [Op.like]: `%${search}%`
                                 }
                             }
                         ]
