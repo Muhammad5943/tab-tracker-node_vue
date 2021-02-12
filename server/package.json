@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "./node_modules/nodemon/bin/nodemon.js src/app.js --exec 'npm run lint && node'",
-    "lint": "true || ./node_modules/.bin/eslint src/**/*.js --fix"
+    "lint": "true || ./node_modules/.bin/eslint src/**/*.js --fix",
+    "seed": "node ./seed"
   },
   "keywords": [
     "Express",
