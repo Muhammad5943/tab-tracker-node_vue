@@ -25,6 +25,24 @@
           }">
           Edit
         </v-btn>
+
+        <v-btn
+          v-if="isUserLoggedIn"
+          dark
+          class="cyan"
+          @click="Bookmark"
+          >
+          Bookmark
+        </v-btn>
+
+        <v-btn
+          v-if="isUserLoggedIn"
+          dark
+          class="cyan"
+          @click="Unbookmark"
+          >
+          Unbookmark
+        </v-btn>
       </v-flex>
 
 
@@ -38,11 +56,30 @@
 </template>
 
 <script>
-// import Panel from '@/components/Panel'
+// import Panel from '@/components/Panel', you can get rid something like $store.state.{{ something }}
+// we could make shortcut the route of permission that allow
+import {mapState} from 'vuex'
+
 export default {
   props: [
     'song'
   ],
+
+  computed: {
+    ...mapState([
+      'isUserLoggedIn'
+    ])
+  },
+
+  methods: {
+    Bookmark () {
+      console.log('bookmark');
+    },
+
+    Unbookmark () {
+      console.log('unbookmark');
+    }
+  },
 
   /* components: {
     Panel
