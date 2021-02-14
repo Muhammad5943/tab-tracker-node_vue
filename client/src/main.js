@@ -11,6 +11,8 @@ import store from '@/store/store'
 // Youtube embaded
 import VueYouTubeEmbed from 'vue-youtube-embed'
 import Panel from '@/components/globals/Panel'
+// vue-persistedstste
+import createPersistedState from 'vuex-persistedstate' // then paste in the store
 
 Vue.config.productionTip = false
 

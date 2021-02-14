@@ -80,21 +80,43 @@ export default {
   },
 
   async mounted() {
-    const bookmark = (await BookmarksService.index({
-      songId: this.song.id,
-      userId: this.$store.state.user.id
-    })).data
-    this.isBookmarked = !!bookmark
-    console.log('bookmark', this.isBookmarked);
-  },
+    if (!this.isUserLoggedIn) {
+      return
+    }
+
+    try {
+      const bookmark = (await BookmarksService.index({
+        songId: this.song.id,
+        userId: this.$store.state.user.id
+      })).data
+      this.isBookmarked = !!bookmark
+      // console.log('bookmark', this.isBookmarked);
+    } catch (error) {
+      console.log(error);
+    }
+      },
 
   methods: {
-    bookmark () {
-      console.log('bookmark');
+    async bookmark () {
+      try {
+        await BookmarksService.post({
+          songId: this.song.id,
+          userId: this.$store.state.user.id
+        })
+      } catch (error) {
+        console.log(error);
+      }
     },
 
-    unbookmark () {
-      console.log('unbookmark');
+    async unbookmark () {
+      try {
+        await BookmarksService.delete({
+          songId: this.songId,
+          userId: this.$store.state.user.id
+        })
+      } catch (error) {
+        console.log(error);
+      }
     }
   },
 
