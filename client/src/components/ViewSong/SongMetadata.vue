@@ -27,19 +27,19 @@
         </v-btn>
 
         <v-btn
-          v-if="isUserLoggedIn"
+          v-if="isUserLoggedIn && !isBookmarked"
           dark
           class="cyan"
-          @click="Bookmark"
+          @click="unbookmark"
           >
           Bookmark
         </v-btn>
 
         <v-btn
-          v-if="isUserLoggedIn"
+          v-if="isUserLoggedIn && isBookmarked"
           dark
           class="cyan"
-          @click="Unbookmark"
+          @click="bookmark"
           >
           Unbookmark
         </v-btn>
@@ -57,13 +57,21 @@
 
 <script>
 // import Panel from '@/components/Panel', you can get rid something like $store.state.{{ something }}
+
 // we could make shortcut the route of permission that allow
 import {mapState} from 'vuex'
+import BookmarksService from '@/services/BookmarksService'
 
 export default {
   props: [
     'song'
   ],
+
+  data() {
+    return {
+      isBookmarked: false
+    }
+  },
 
   computed: {
     ...mapState([
@@ -71,12 +79,21 @@ export default {
     ])
   },
 
+  async mounted() {
+    const bookmark = (await BookmarksService.index({
+      songId: this.song.id,
+      userId: this.$store.state.user.id
+    })).data
+    this.isBookmarked = !!bookmark
+    console.log('bookmark', this.isBookmarked);
+  },
+
   methods: {
-    Bookmark () {
+    bookmark () {
       console.log('bookmark');
     },
 
-    Unbookmark () {
+    unbookmark () {
       console.log('unbookmark');
     }
   },
