@@ -13,6 +13,7 @@
         </div>
 
         <v-btn
+          v-if="isUserLoggedIn"
           dark
           class="cyan"
           :to="{
@@ -110,10 +111,8 @@ export default {
 
     async unbookmark () {
       try {
-        await BookmarksService.delete({
-          songId: this.songId,
-          userId: this.$store.state.user.id
-        })
+        await BookmarksService.delete(this.bookmark.id)
+        this.bookmark = null
       } catch (error) {
         console.log(error);
       }
