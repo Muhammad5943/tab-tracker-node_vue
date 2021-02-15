@@ -49,7 +49,7 @@ module.exports = {
     },
 
     async post (req, res) {
-        // try {
+        try {
             const { userId, songId } = req.body
             const bookmark = await Bookmark.findOne({
                 where: {
@@ -70,12 +70,12 @@ module.exports = {
             })
 
             res.send(newBookmark)
-        /* } catch (err) {
+        } catch (err) {
             console.log(err);
             res.status(500).send({
                 error: 'an error has occured trying to created bookmark'
             })
-        } */
+        }
     },
 
     async delete (req, res) {
