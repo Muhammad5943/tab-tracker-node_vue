@@ -76,31 +76,51 @@ export default {
 
   computed: {
     ...mapState([
-      'isUserLoggedIn'
+      'isUserLoggedIn',
+      'user'
     ])
   },
 
-  watch: {
+  /* watch: {
     async song() {
+      if (!this.isUserLoggedIn) {
+        return
+      }
 
+      try {
+        const bookmarks = (await BookmarksService.index({
+          songId: this.song.id,
+          userId: this.user.id
+        })).data
+        if (bookmarks.length) {
+          this.bookmark = bookmarks[0]
+        }
+        // this.isBookmarked = !!bookmark
+        // console.log('bookmark', this.isBookmarked);
+      } catch (error) {
+        console.log(error);
+      }
     }
-  },
+  }, */
 
   async mounted() {
-    if (!this.isUserLoggedIn) {
-      return
-    }
+      if (!this.isUserLoggedIn) {
+        return
+      }
 
-    try {
-      this.bookmark = (await BookmarksService.index({
-        songId: this.song.id,
-        userId: this.$store.state.user.id
-      })).data
-      // this.isBookmarked = !!bookmark
-      // console.log('bookmark', this.isBookmarked);
-    } catch (error) {
-      console.log(error);
-    }
+      try {
+        const bookmarks = (await BookmarksService.index({
+          songId: this.song.id,
+          userId: this.user.id
+        })).data
+        if (bookmarks.length) {
+          this.bookmark = bookmarks[0]
+        }
+        // this.isBookmarked = !!bookmark
+        // console.log('bookmark', this.isBookmarked);
+      } catch (error) {
+        console.log(error);
+      }
   },
 
   methods: {
@@ -108,7 +128,7 @@ export default {
       try {
         this.bookmark = (await BookmarksService.post({
           songId: this.song.id,
-          userId: this.$store.state.user.id
+          userId: this.user.id
         })).data
       } catch (error) {
         console.log(error);

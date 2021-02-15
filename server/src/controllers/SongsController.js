@@ -84,7 +84,7 @@ module.exports = {
                     id: req.params.songId
                 }
             })
-            res.send(req.body);
+            res.send(song);
         } catch (error) {
             res.status(500).send({
                 error: 'An error has occured trying to update the song.'

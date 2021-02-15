@@ -1,29 +1,55 @@
-const {Bookmark} = require('../models')
-const Sequelize = require('sequelize')
-const Op = Sequelize.Op
+const {
+    Bookmark,
+    Song
+} = require('../models')
+const _ = require('lodash')
 
 module.exports = {
     async index (req, res) {
         try {
+            // const userId = req.user.id
             const { songId, userId } = req.query
+            /* console.log(req.query);
+            console.log(req.query);
+            console.log(req.query); */
+            const where = {
+                UserId: userId
+            }
+            if (songId) {
+                where.SongId = songId
+            }
 
-            const bookmark = await Bookmark.findOne({
-                where: {
-                    SongId: songId,
+            const bookmarks = await Bookmark.findAll({
+                // after fixing
+                where: where,
+                include: [
+                    {
+                        model: Song
+                    }
+                ]
+                // before fix
+                /* where: {
+                    // SongId: songId, // this the issue
                     UserId: userId
-                }
+                } */
             })
+                /* .map(bookmark => bookmark.toJSON)
+                .map(bookmark => _.extend(
+                    {},
+                    bookmark.Song,
+                    bookmark
+                )) */
 
-            res.send(bookmark)
-        } catch (err) {
-            res.status(500).send({
-                error: 'an error has occured trying to fetch the bookmark'
-            })
-        }
+            res.send(bookmarks)
+            } catch (err) {
+                res.status(500).send({
+                    error: 'an error has occured trying to fetch the bookmark'
+                })
+            }
     },
 
     async post (req, res) {
-        try {
+        // try {
             const { userId, songId } = req.body
             const bookmark = await Bookmark.findOne({
                 where: {
@@ -44,12 +70,12 @@ module.exports = {
             })
 
             res.send(newBookmark)
-        } catch (err) {
+        /* } catch (err) {
             console.log(err);
             res.status(500).send({
                 error: 'an error has occured trying to created bookmark'
             })
-        }
+        } */
     },
 
     async delete (req, res) {
