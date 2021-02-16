@@ -56,8 +56,8 @@ export default {
 
     if (this.isUserLoggedIn) {
       SongHistoryService.post({
-        songId: songId,
-        userId: this.user.id
+        songId: songId
+        // userId: this.user.id {no need passin it when already used jwt-passport}
       })
     }
   },

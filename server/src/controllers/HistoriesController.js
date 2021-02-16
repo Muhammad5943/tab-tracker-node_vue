@@ -6,8 +6,13 @@ const _ = require('lodash')
 
 module.exports = {
     async index (req, res) {
-        try {
-            const { userId } = req.query
+        // try {
+            const userId = req.user.id /* req.query {before used jwt passport)*/
+                /* console.log('userId', userId);
+                console.log('userId', userId);
+                console.log('userId', userId);
+                console.log('userId', userId);
+                console.log('userId', userId);  check value of userId*/
             const histories = await History.findAll({
                 // after fixing
                 where: {
@@ -32,16 +37,17 @@ module.exports = {
                 )) */
 
             res.send(_.uniqBy(histories, history => history.SongId))
-            } catch (err) {
+            /* } catch (err) {
                 res.status(500).send({
                     error: 'an error has occured trying to fetch the history'
                 })
-            }
+            } */
     },
 
     async post (req, res) {
         try {
-            const { userId, songId } = req.body
+            const userId = req.user.id /* req.query */
+            const { /* userId, */ songId } = req.body
             const history = await History.create({
                 SongId: songId,
                 UserId: userId

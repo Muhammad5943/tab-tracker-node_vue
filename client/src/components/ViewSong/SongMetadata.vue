@@ -110,8 +110,8 @@ export default {
 
       try {
         const bookmarks = (await BookmarksService.index({
-          songId: this.song.id,
-          userId: this.user.id
+          songId: this.song.id
+          // userId: this.user.id (because we already used jwtStrategy)
         })).data
         if (bookmarks.length) {
           this.bookmark = bookmarks[0]
@@ -127,8 +127,8 @@ export default {
     async setAsBookmark () {
       try {
         this.bookmark = (await BookmarksService.post({
-          songId: this.song.id,
-          userId: this.user.id
+          songId: this.song.id
+          // userId: this.user.id (because we already used jwtStrategy
         })).data
       } catch (error) {
         console.log(error);

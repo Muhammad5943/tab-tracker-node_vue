@@ -7,8 +7,8 @@ const _ = require('lodash')
 module.exports = {
     async index (req, res) {
         try {
-            // const userId = req.user.id
-            const { songId, userId } = req.query
+            const userId = req.user.id
+            const { songId/* , userId (used it before implement jwt-passport)*/ } = req.query
             /* console.log(req.query);
             console.log(req.query);
             console.log(req.query); */
@@ -50,7 +50,8 @@ module.exports = {
 
     async post (req, res) {
         try {
-            const { userId, songId } = req.body
+            const userId = req.user.id
+            const { /* userId,  */songId } = req.body
             const bookmark = await Bookmark.findOne({
                 where: {
                     SongId: songId,
@@ -80,9 +81,20 @@ module.exports = {
 
     async delete (req, res) {
         try {
+            const userId = req.user.id
             const { bookmarkId } = req.params
 
-            const bookmark = await Bookmark.findByPk(bookmarkId)
+            const bookmark = await Bookmark.findOne({
+                where: {
+                    id: bookmarkId,
+                    UserId: userId
+                }
+            })
+            if (!bookmark) {
+                return res.status(403).send({
+                    error: 'you do not access to this bookmark'
+                })
+            }
             await bookmark.destroy()
             res.send(bookmark)
         } catch (err) {

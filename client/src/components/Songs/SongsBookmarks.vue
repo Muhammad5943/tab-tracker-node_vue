@@ -60,9 +60,9 @@ export default {
 
   async mounted() {
     if (this.isUserLoggedIn) {
-      this.bookmarks = (await BookmarksService.index({
+      this.bookmarks = (await BookmarksService.index(/* {
         userId: this.user.id
-      })).data
+      } "when you were implement jwt auth no more need the query userId string passin"*/)).data
     }
   }
 }

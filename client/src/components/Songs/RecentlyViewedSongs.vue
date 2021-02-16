@@ -52,9 +52,9 @@ export default {
 
   async mounted() {
     if (this.isUserLoggedIn) {
-      this.histories = (await SongHistoryService.index({
+      this.histories = (await SongHistoryService.index(/* {
         userId: this.user.id
-      })).data
+      } "Because you already use jwt passport for token"*/)).data
     }
   },
 }
